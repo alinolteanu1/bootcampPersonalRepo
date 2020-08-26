@@ -1,0 +1,16 @@
+{
+  "metadata" : {
+    "realm" : null,
+    "amsterVersion" : "6.5.2.3",
+    "entityType" : "Realms",
+    "entityId" : "L3dlYmluYXI",
+    "pathParams" : { }
+  },
+  "data" : {
+    "_id" : "L3dlYmluYXI",
+    "parentPath" : "/",
+    "active" : true,
+    "name" : "webinar",
+    "aliases" : [ ]
+  }
+}

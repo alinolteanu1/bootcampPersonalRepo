@@ -1,0 +1,83 @@
+{
+  "metadata" : {
+    "realm" : "/bootcamp",
+    "amsterVersion" : "6.5.2.3",
+    "entityType" : "AuthTree",
+    "entityId" : "Auth1",
+    "pathParams" : { }
+  },
+  "data" : {
+    "_id" : "Auth1",
+    "nodes" : {
+      "0e5bd5f3-19d9-45bc-8975-3186391b49f2" : {
+        "displayName" : "Username Collector",
+        "nodeType" : "UsernameCollectorNode",
+        "connections" : {
+          "outcome" : "03e5dbb3-478a-44b5-ba8e-e9913c1706c4"
+        }
+      },
+      "03e5dbb3-478a-44b5-ba8e-e9913c1706c4" : {
+        "displayName" : "Password Collector",
+        "nodeType" : "PasswordCollectorNode",
+        "connections" : {
+          "outcome" : "433a0d15-852f-4967-9d03-5466a2b129ab"
+        }
+      },
+      "19de9c79-7f0d-4c6f-a66f-c1ce63b4cef9" : {
+        "displayName" : "Data Store Decision",
+        "nodeType" : "DataStoreDecisionNode",
+        "connections" : {
+          "false" : "e301438c-0bd0-429c-ab0c-66126501069a",
+          "true" : "18d8cddc-6901-4c35-9f97-a4fb51c926f7"
+        }
+      },
+      "433a0d15-852f-4967-9d03-5466a2b129ab" : {
+        "displayName" : "Check Device Type",
+        "nodeType" : "CheckDeviceType",
+        "connections" : {
+          "true" : "19de9c79-7f0d-4c6f-a66f-c1ce63b4cef9",
+          "false" : "e301438c-0bd0-429c-ab0c-66126501069a"
+        }
+      },
+      "e7ded9d5-cc25-4925-aac2-6f62ba8c6f8c" : {
+        "displayName" : "Check Phone Number",
+        "nodeType" : "CheckPhoneNumber",
+        "connections" : {
+          "found" : "4bbe6d53-def8-4ae1-a8b7-38b921ccd5f1",
+          "not_found" : "84a9242d-4be6-406a-9784-87b5952a170e"
+        }
+      },
+      "18d8cddc-6901-4c35-9f97-a4fb51c926f7" : {
+        "displayName" : "Collector Phone Number",
+        "nodeType" : "CollectorPhoneNumber",
+        "connections" : {
+          "outcome" : "e7ded9d5-cc25-4925-aac2-6f62ba8c6f8c"
+        }
+      },
+      "a55ce973-98dd-49a2-8432-3a6c4fdab85f" : {
+        "displayName" : "Check User Status Reloaded",
+        "nodeType" : "CheckUserStatus",
+        "connections" : {
+          "Active" : "70e691a5-1e33-4ac3-a356-e7b6d60d92e0",
+          "Inactive" : "e301438c-0bd0-429c-ab0c-66126501069a"
+        }
+      },
+      "4bbe6d53-def8-4ae1-a8b7-38b921ccd5f1" : {
+        "displayName" : "Collector User Status",
+        "nodeType" : "CollectorUserStatus",
+        "connections" : {
+          "outcome" : "a55ce973-98dd-49a2-8432-3a6c4fdab85f"
+        }
+      },
+      "84a9242d-4be6-406a-9784-87b5952a170e" : {
+        "displayName" : "Retry Limit Decision",
+        "nodeType" : "RetryLimitDecisionNode",
+        "connections" : {
+          "Retry" : "18d8cddc-6901-4c35-9f97-a4fb51c926f7",
+          "Reject" : "e301438c-0bd0-429c-ab0c-66126501069a"
+        }
+      }
+    },
+    "entryNodeId" : "0e5bd5f3-19d9-45bc-8975-3186391b49f2"
+  }
+}

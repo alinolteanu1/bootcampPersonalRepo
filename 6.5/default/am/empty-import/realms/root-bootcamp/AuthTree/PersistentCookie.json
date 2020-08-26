@@ -1,7 +1,7 @@
 {
   "metadata" : {
     "realm" : "/bootcamp",
-    "amsterVersion" : "6.5.2",
+    "amsterVersion" : "6.5.2.3",
     "entityType" : "AuthTree",
     "entityId" : "PersistentCookie",
     "pathParams" : { }
@@ -9,37 +9,37 @@
   "data" : {
     "_id" : "PersistentCookie",
     "nodes" : {
-      "841985b3-340a-48c6-8955-9ab15f1d40e4" : {
+      "af54a3df-e921-4748-bb7d-2af0d7766c27" : {
         "displayName" : "User Name Collector",
         "nodeType" : "UsernameCollectorNode",
         "connections" : {
-          "outcome" : "001886e9-8d50-42c2-9255-41605b03551e"
+          "outcome" : "c890f0f5-adce-4008-ac32-646f78d74996"
         }
       },
-      "001886e9-8d50-42c2-9255-41605b03551e" : {
+      "c890f0f5-adce-4008-ac32-646f78d74996" : {
         "displayName" : "Password Collector",
         "nodeType" : "PasswordCollectorNode",
         "connections" : {
-          "outcome" : "c1f8f2fc-7fa0-460f-a3b5-8212c45828f6"
+          "outcome" : "51b062e7-f112-42c3-9547-24f6fba47639"
         }
       },
-      "c1f8f2fc-7fa0-460f-a3b5-8212c45828f6" : {
+      "51b062e7-f112-42c3-9547-24f6fba47639" : {
         "displayName" : "Data Store Decision",
         "nodeType" : "DataStoreDecisionNode",
         "connections" : {
-          "true" : "1b51a3f3-664d-4fea-846b-870618fd45ee",
-          "false" : "841985b3-340a-48c6-8955-9ab15f1d40e4"
+          "true" : "2a493cc7-8143-4ffd-b3ab-5589de94a19b",
+          "false" : "af54a3df-e921-4748-bb7d-2af0d7766c27"
         }
       },
-      "fd98cfbb-0081-4040-b0fe-ec9e4aa69e2a" : {
+      "539378a6-065a-4428-b51a-f0ff583061c7" : {
         "displayName" : "Persistent Cookie Decision",
         "nodeType" : "PersistentCookieDecisionNode",
         "connections" : {
           "true" : "70e691a5-1e33-4ac3-a356-e7b6d60d92e0",
-          "false" : "841985b3-340a-48c6-8955-9ab15f1d40e4"
+          "false" : "af54a3df-e921-4748-bb7d-2af0d7766c27"
         }
       },
-      "1b51a3f3-664d-4fea-846b-870618fd45ee" : {
+      "2a493cc7-8143-4ffd-b3ab-5589de94a19b" : {
         "displayName" : "Set Persistent Cookie",
         "nodeType" : "SetPersistentCookieNode",
         "connections" : {
@@ -47,6 +47,6 @@
         }
       }
     },
-    "entryNodeId" : "fd98cfbb-0081-4040-b0fe-ec9e4aa69e2a"
+    "entryNodeId" : "539378a6-065a-4428-b51a-f0ff583061c7"
   }
 }

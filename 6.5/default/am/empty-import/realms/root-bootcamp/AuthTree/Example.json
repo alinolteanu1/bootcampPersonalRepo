@@ -1,7 +1,7 @@
 {
   "metadata" : {
     "realm" : "/bootcamp",
-    "amsterVersion" : "6.5.2",
+    "amsterVersion" : "6.5.2.3",
     "entityType" : "AuthTree",
     "entityId" : "Example",
     "pathParams" : { }
@@ -9,21 +9,21 @@
   "data" : {
     "_id" : "Example",
     "nodes" : {
-      "ff2d3915-6d85-4acc-ba4c-fb2bb4fa6369" : {
+      "80b8fa0e-bbe4-4ebd-b8d9-524b34b3df2a" : {
         "displayName" : "User Name Collector",
         "nodeType" : "UsernameCollectorNode",
         "connections" : {
-          "outcome" : "07cda6ce-54ec-4f80-9993-43bb8823e398"
+          "outcome" : "23e0c9f7-6289-430a-a8e7-2fa64ca2f114"
         }
       },
-      "07cda6ce-54ec-4f80-9993-43bb8823e398" : {
+      "23e0c9f7-6289-430a-a8e7-2fa64ca2f114" : {
         "displayName" : "Password Collector",
         "nodeType" : "PasswordCollectorNode",
         "connections" : {
-          "outcome" : "20ab288a-f60c-41ef-be47-eabdf08af4e9"
+          "outcome" : "2f6b758f-084c-4642-8564-032f68e23f36"
         }
       },
-      "20ab288a-f60c-41ef-be47-eabdf08af4e9" : {
+      "2f6b758f-084c-4642-8564-032f68e23f36" : {
         "displayName" : "Data Store Decision",
         "nodeType" : "DataStoreDecisionNode",
         "connections" : {
@@ -31,15 +31,15 @@
           "false" : "e301438c-0bd0-429c-ab0c-66126501069a"
         }
       },
-      "614e82b4-c64a-494f-b419-7ed9a32bf907" : {
+      "56112118-7ba2-4e33-99bd-de6089ba8ebe" : {
         "displayName" : "Zero Page Login Collector",
         "nodeType" : "ZeroPageLoginNode",
         "connections" : {
-          "true" : "20ab288a-f60c-41ef-be47-eabdf08af4e9",
-          "false" : "ff2d3915-6d85-4acc-ba4c-fb2bb4fa6369"
+          "true" : "2f6b758f-084c-4642-8564-032f68e23f36",
+          "false" : "80b8fa0e-bbe4-4ebd-b8d9-524b34b3df2a"
         }
       }
     },
-    "entryNodeId" : "614e82b4-c64a-494f-b419-7ed9a32bf907"
+    "entryNodeId" : "56112118-7ba2-4e33-99bd-de6089ba8ebe"
   }
 }

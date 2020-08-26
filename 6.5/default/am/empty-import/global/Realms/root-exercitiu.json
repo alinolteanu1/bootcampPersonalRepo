@@ -1,0 +1,16 @@
+{
+  "metadata" : {
+    "realm" : null,
+    "amsterVersion" : "6.5.2.3",
+    "entityType" : "Realms",
+    "entityId" : "L2V4ZXJjaXRpdQ",
+    "pathParams" : { }
+  },
+  "data" : {
+    "_id" : "L2V4ZXJjaXRpdQ",
+    "parentPath" : "/",
+    "active" : true,
+    "name" : "exercitiu",
+    "aliases" : [ ]
+  }
+}

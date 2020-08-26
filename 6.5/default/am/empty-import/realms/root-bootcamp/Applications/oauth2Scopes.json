@@ -1,7 +1,7 @@
 {
   "metadata" : {
     "realm" : "/bootcamp",
-    "amsterVersion" : "6.5.2",
+    "amsterVersion" : "6.5.2.3",
     "entityType" : "Applications",
     "entityId" : "oauth2Scopes",
     "pathParams" : { }
@@ -10,20 +10,20 @@
     "_id" : "oauth2Scopes",
     "name" : "oauth2Scopes",
     "displayName" : "Default OAuth2 Scopes Policy Set",
-    "createdBy" : "id=dsameuser,ou=user,dc=openam,dc=forgerock,dc=org",
-    "conditions" : [ "LEAuthLevel", "Script", "AuthenticateToService", "SimpleTime", "AMIdentityMembership", "OR", "IPv6", "IPv4", "SessionProperty", "AuthScheme", "AuthLevel", "NOT", "Transaction", "AuthenticateToRealm", "AND", "ResourceEnvIP", "LDAPFilter", "OAuth2Scope", "Session" ],
-    "lastModifiedDate" : 1596136406204,
-    "lastModifiedBy" : "id=dsameuser,ou=user,dc=openam,dc=forgerock,dc=org",
-    "creationDate" : 1596136387131,
-    "resourceTypeUuids" : [ "d60b7a71-1dc6-44a5-8e48-e4b9d92dee8b" ],
     "resourceComparator" : null,
-    "applicationType" : "iPlanetAMWebAgentService",
-    "searchIndex" : null,
-    "subjects" : [ "NOT", "OR", "JwtClaim", "AuthenticatedUsers", "AND", "Identity", "NONE" ],
-    "saveIndex" : null,
+    "description" : "The built-in Application used by the OAuth2 scope authorization process.",
     "attributeNames" : [ ],
     "editable" : true,
-    "description" : "The built-in Application used by the OAuth2 scope authorization process.",
-    "entitlementCombiner" : "DenyOverride"
+    "createdBy" : "id=dsameuser,ou=user,dc=openam,dc=forgerock,dc=org",
+    "lastModifiedBy" : "id=amAdmin,ou=user,dc=openam,dc=forgerock,dc=org",
+    "lastModifiedDate" : 1597137625902,
+    "entitlementCombiner" : "DenyOverride",
+    "applicationType" : "iPlanetAMWebAgentService",
+    "resourceTypeUuids" : [ "d60b7a71-1dc6-44a5-8e48-e4b9d92dee8b" ],
+    "conditions" : [ "LEAuthLevel", "Script", "AuthenticateToService", "SimpleTime", "AMIdentityMembership", "OR", "IPv6", "IPv4", "SessionProperty", "AuthScheme", "AuthLevel", "NOT", "Transaction", "AuthenticateToRealm", "AND", "ResourceEnvIP", "LDAPFilter", "OAuth2Scope", "Session" ],
+    "creationDate" : 1596009039360,
+    "searchIndex" : null,
+    "subjects" : [ "NOT", "OR", "JwtClaim", "AuthenticatedUsers", "AND", "Identity", "NONE" ],
+    "saveIndex" : null
   }
 }

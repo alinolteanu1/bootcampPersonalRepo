@@ -1,0 +1,29 @@
+{
+  "metadata" : {
+    "realm" : "/bootcamp",
+    "amsterVersion" : "6.5.2.3",
+    "entityType" : "Applications",
+    "entityId" : "FirstPolicy",
+    "pathParams" : { }
+  },
+  "data" : {
+    "_id" : "FirstPolicy",
+    "name" : "FirstPolicy",
+    "displayName" : "FirstPolicy",
+    "resourceComparator" : null,
+    "description" : null,
+    "attributeNames" : [ ],
+    "editable" : true,
+    "createdBy" : "id=amAdmin,ou=user,dc=openam,dc=forgerock,dc=org",
+    "lastModifiedBy" : "id=amAdmin,ou=user,dc=openam,dc=forgerock,dc=org",
+    "lastModifiedDate" : 1597137625878,
+    "entitlementCombiner" : "DenyOverride",
+    "applicationType" : "iPlanetAMWebAgentService",
+    "resourceTypeUuids" : [ "76656a38-5f8e-401b-83aa-4ccb74ce88d2" ],
+    "conditions" : [ "LEAuthLevel", "Policy", "Script", "AuthenticateToService", "SimpleTime", "AMIdentityMembership", "OR", "IPv6", "IPv4", "SessionProperty", "AuthScheme", "AuthLevel", "NOT", "Transaction", "AuthenticateToRealm", "AND", "ResourceEnvIP", "LDAPFilter", "OAuth2Scope", "Session" ],
+    "creationDate" : 1596613992243,
+    "searchIndex" : null,
+    "subjects" : [ "Policy", "NOT", "OR", "JwtClaim", "AuthenticatedUsers", "AND", "Identity", "NONE" ],
+    "saveIndex" : null
+  }
+}

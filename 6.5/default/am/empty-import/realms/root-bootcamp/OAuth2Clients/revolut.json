@@ -1,7 +1,7 @@
 {
   "metadata" : {
     "realm" : "/bootcamp",
-    "amsterVersion" : "6.5.2",
+    "amsterVersion" : "6.5.2.3",
     "entityType" : "OAuth2Clients",
     "entityId" : "revolut",
     "pathParams" : { }
@@ -27,8 +27,8 @@
       "jwkStoreCacheMissCacheTime" : 60000,
       "idTokenSignedResponseAlg" : "RS256",
       "idTokenPublicEncryptionKey" : null,
-      "jwksUri" : "http://localhost:8081/openam/oauth2/bootcamp/connect/jwk_uri",
       "userinfoEncryptedResponseAlg" : null,
+      "jwksUri" : "http://localhost:9090/openam/oauth2/bootcamp/connect/jwk_uri",
       "requestParameterSignedAlg" : null,
       "clientJwtPublicKey" : null
     },
@@ -59,7 +59,6 @@
       "defaultMaxAgeEnabled" : false
     },
     "coreOAuth2ClientConfig" : {
-      "userpassword" : null,
       "authorizationCodeLifetime" : 0,
       "accessTokenLifetime" : 0,
       "defaultScopes" : [ ],

@@ -1,0 +1,18 @@
+{
+  "metadata" : {
+    "realm" : "/bootcamp",
+    "amsterVersion" : "6.5.2.3",
+    "entityType" : "CreatePassword",
+    "entityId" : "8ab0d311-8cf5-4840-be5f-2dba7d975458",
+    "pathParams" : { }
+  },
+  "data" : {
+    "_id" : "8ab0d311-8cf5-4840-be5f-2dba7d975458",
+    "minPasswordLength" : 0,
+    "_type" : {
+      "_id" : "CreatePasswordNode",
+      "name" : "Create Password",
+      "collection" : true
+    }
+  }
+}

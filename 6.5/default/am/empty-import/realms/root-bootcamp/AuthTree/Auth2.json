@@ -1,0 +1,91 @@
+{
+  "metadata" : {
+    "realm" : "/bootcamp",
+    "amsterVersion" : "6.5.2.3",
+    "entityType" : "AuthTree",
+    "entityId" : "Auth2",
+    "pathParams" : { }
+  },
+  "data" : {
+    "_id" : "Auth2",
+    "nodes" : {
+      "8078340f-6a97-4eb9-87fe-00175f7f9c11" : {
+        "displayName" : "Check Valid User",
+        "nodeType" : "CheckValidUser",
+        "connections" : {
+          "not_found" : "e301438c-0bd0-429c-ab0c-66126501069a",
+          "found" : "3736d84f-d81d-470b-aabb-065ebbdbd36d"
+        }
+      },
+      "57b3b6c6-8c2d-4769-b0f2-592c46cc0218" : {
+        "displayName" : "Collector Email Phone",
+        "nodeType" : "CollectorEmailPhone",
+        "connections" : {
+          "outcome" : "8078340f-6a97-4eb9-87fe-00175f7f9c11"
+        }
+      },
+      "3736d84f-d81d-470b-aabb-065ebbdbd36d" : {
+        "displayName" : "HOTP Generator",
+        "nodeType" : "OneTimePasswordGeneratorNode",
+        "connections" : {
+          "outcome" : "204dbab1-ab2c-4eb5-a5b5-ca855a2e7a92"
+        }
+      },
+      "204dbab1-ab2c-4eb5-a5b5-ca855a2e7a92" : {
+        "displayName" : "OTP Email Sender",
+        "nodeType" : "OneTimePasswordSmtpSenderNode",
+        "connections" : {
+          "outcome" : "6a48c4d6-bea4-4043-8410-896f3f3a712f"
+        }
+      },
+      "6a48c4d6-bea4-4043-8410-896f3f3a712f" : {
+        "displayName" : "OTP Collector Decision",
+        "nodeType" : "OneTimePasswordCollectorDecisionNode",
+        "connections" : {
+          "true" : "b52c5b98-707c-4881-aec7-181977cf8724",
+          "false" : "2be1d98b-adbc-4237-8d03-36c96003c4d7"
+        }
+      },
+      "2be1d98b-adbc-4237-8d03-36c96003c4d7" : {
+        "displayName" : "Retry Limit Decision",
+        "nodeType" : "RetryLimitDecisionNode",
+        "connections" : {
+          "Retry" : "3736d84f-d81d-470b-aabb-065ebbdbd36d",
+          "Reject" : "e301438c-0bd0-429c-ab0c-66126501069a"
+        }
+      },
+      "b52c5b98-707c-4881-aec7-181977cf8724" : {
+        "displayName" : "Validate Decision",
+        "nodeType" : "ValidateDecision",
+        "connections" : {
+          "valid" : "ad59f1bc-a01d-4aa2-899b-5749ce1126a6",
+          "invalid" : "e301438c-0bd0-429c-ab0c-66126501069a"
+        }
+      },
+      "fd8c71e9-50ec-4b64-acfa-7220307d1744" : {
+        "displayName" : "Modify Auth Level",
+        "nodeType" : "ModifyAuthLevelNode",
+        "connections" : {
+          "outcome" : "7c1a1133-7790-4bf7-bd45-6d3317f0923f"
+        }
+      },
+      "7c1a1133-7790-4bf7-bd45-6d3317f0923f" : {
+        "displayName" : "Auth Level Decision",
+        "nodeType" : "AuthLevelDecisionNode",
+        "connections" : {
+          "true" : "70e691a5-1e33-4ac3-a356-e7b6d60d92e0",
+          "false" : "e301438c-0bd0-429c-ab0c-66126501069a"
+        }
+      },
+      "ad59f1bc-a01d-4aa2-899b-5749ce1126a6" : {
+        "displayName" : "Get Employee Number",
+        "nodeType" : "GetEmployeeNumber",
+        "connections" : {
+          "false" : "e301438c-0bd0-429c-ab0c-66126501069a",
+          "true" : "fd8c71e9-50ec-4b64-acfa-7220307d1744"
+        }
+      }
+    },
+    "entryNodeId" : "57b3b6c6-8c2d-4769-b0f2-592c46cc0218"
+  }
+}

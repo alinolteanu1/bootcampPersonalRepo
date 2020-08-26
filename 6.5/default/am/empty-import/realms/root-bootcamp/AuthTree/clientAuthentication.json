@@ -1,0 +1,45 @@
+{
+  "metadata" : {
+    "realm" : "/bootcamp",
+    "amsterVersion" : "6.5.2.3",
+    "entityType" : "AuthTree",
+    "entityId" : "clientAuthentication",
+    "pathParams" : { }
+  },
+  "data" : {
+    "_id" : "clientAuthentication",
+    "nodes" : {
+      "ae25742f-5af5-4ea7-adb0-cff87685f7b3" : {
+        "displayName" : "Username Collector",
+        "nodeType" : "UsernameCollectorNode",
+        "connections" : {
+          "outcome" : "42847565-9b72-4234-8ee8-07caef4d02ba"
+        }
+      },
+      "42847565-9b72-4234-8ee8-07caef4d02ba" : {
+        "displayName" : "Password Collector",
+        "nodeType" : "PasswordCollectorNode",
+        "connections" : {
+          "outcome" : "afc3572b-d9e9-4ed7-a991-589d6937630f"
+        }
+      },
+      "6746489a-227f-44b1-aa27-5515d7302555" : {
+        "displayName" : "Data Store Decision",
+        "nodeType" : "DataStoreDecisionNode",
+        "connections" : {
+          "false" : "e301438c-0bd0-429c-ab0c-66126501069a",
+          "true" : "70e691a5-1e33-4ac3-a356-e7b6d60d92e0"
+        }
+      },
+      "afc3572b-d9e9-4ed7-a991-589d6937630f" : {
+        "displayName" : "Check Device Type",
+        "nodeType" : "CheckDeviceType",
+        "connections" : {
+          "true" : "6746489a-227f-44b1-aa27-5515d7302555",
+          "false" : "e301438c-0bd0-429c-ab0c-66126501069a"
+        }
+      }
+    },
+    "entryNodeId" : "ae25742f-5af5-4ea7-adb0-cff87685f7b3"
+  }
+}

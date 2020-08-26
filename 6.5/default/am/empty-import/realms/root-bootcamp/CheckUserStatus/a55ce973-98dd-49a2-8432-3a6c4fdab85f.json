@@ -1,0 +1,19 @@
+{
+  "metadata" : {
+    "realm" : "/bootcamp",
+    "amsterVersion" : "6.5.2.3",
+    "entityType" : "CheckUserStatus",
+    "entityId" : "a55ce973-98dd-49a2-8432-3a6c4fdab85f",
+    "pathParams" : { }
+  },
+  "data" : {
+    "_id" : "a55ce973-98dd-49a2-8432-3a6c4fdab85f",
+    "outcomes" : [ "Active", "Inactive" ],
+    "headerUserStatusName" : "userStatus",
+    "_type" : {
+      "_id" : "CheckUserStatus",
+      "name" : "Check User Status Reloaded",
+      "collection" : true
+    }
+  }
+}

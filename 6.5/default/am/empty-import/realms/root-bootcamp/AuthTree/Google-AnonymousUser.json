@@ -1,7 +1,7 @@
 {
   "metadata" : {
     "realm" : "/bootcamp",
-    "amsterVersion" : "6.5.2",
+    "amsterVersion" : "6.5.2.3",
     "entityType" : "AuthTree",
     "entityId" : "Google-AnonymousUser",
     "pathParams" : { }
@@ -9,29 +9,29 @@
   "data" : {
     "_id" : "Google-AnonymousUser",
     "nodes" : {
-      "67f891df-1fba-4df4-9c8f-1f5353bc37e5" : {
+      "ba891b83-7bdc-40ae-bd77-2fdb5b5bad61" : {
         "displayName" : "Map to Anonymous User",
         "nodeType" : "AnonymousUserNode",
         "connections" : {
-          "outcome" : "d3cacef6-8b6c-40d8-9b6f-2cd012f10392"
+          "outcome" : "85a62154-f963-47b8-9b56-ea7a5186d387"
         }
       },
-      "d3cacef6-8b6c-40d8-9b6f-2cd012f10392" : {
+      "85a62154-f963-47b8-9b56-ea7a5186d387" : {
         "displayName" : "Set Success URL",
         "nodeType" : "SetSuccessUrlNode",
         "connections" : {
           "outcome" : "70e691a5-1e33-4ac3-a356-e7b6d60d92e0"
         }
       },
-      "4f6d4aa1-2009-417f-ae95-1c130d6917c5" : {
+      "25a11de0-4e12-462e-a8eb-7a7b028f8618" : {
         "displayName" : "Google Social Authentication",
         "nodeType" : "SocialGoogleNode",
         "connections" : {
-          "NO_ACCOUNT" : "67f891df-1fba-4df4-9c8f-1f5353bc37e5",
+          "NO_ACCOUNT" : "ba891b83-7bdc-40ae-bd77-2fdb5b5bad61",
           "ACCOUNT_EXISTS" : "70e691a5-1e33-4ac3-a356-e7b6d60d92e0"
         }
       }
     },
-    "entryNodeId" : "4f6d4aa1-2009-417f-ae95-1c130d6917c5"
+    "entryNodeId" : "25a11de0-4e12-462e-a8eb-7a7b028f8618"
   }
 }
