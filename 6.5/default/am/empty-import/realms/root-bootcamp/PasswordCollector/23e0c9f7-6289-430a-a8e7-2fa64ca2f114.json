@@ -1,7 +1,7 @@
 {
   "metadata" : {
     "realm" : "/bootcamp",
-    "amsterVersion" : "6.5.2.3",
+    "amsterVersion" : "6.5.2",
     "entityType" : "PasswordCollector",
     "entityId" : "23e0c9f7-6289-430a-a8e7-2fa64ca2f114",
     "pathParams" : { }

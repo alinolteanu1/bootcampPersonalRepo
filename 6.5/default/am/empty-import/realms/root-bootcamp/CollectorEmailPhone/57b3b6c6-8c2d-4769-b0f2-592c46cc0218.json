@@ -1,7 +1,7 @@
 {
   "metadata" : {
     "realm" : "/bootcamp",
-    "amsterVersion" : "6.5.2.3",
+    "amsterVersion" : "6.5.2",
     "entityType" : "CollectorEmailPhone",
     "entityId" : "57b3b6c6-8c2d-4769-b0f2-592c46cc0218",
     "pathParams" : { }
