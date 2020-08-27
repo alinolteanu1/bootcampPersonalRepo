@@ -1,0 +1,202 @@
+{
+  "name": "demo-protected-route",
+  "baseURI": "http://localhost:8081",
+  "condition": "${matches(request.uri.path, '/home')}",
+  "capture": [
+    "response",
+    "request"
+  ],
+  "handler": "Chain",
+  "auditService": {
+    "name": "demo-audit-service",
+    "type": "AuditService",
+    "config": {
+      "enabled": true,
+      "event-handlers": [
+        {
+          "class": "org.forgerock.audit.handlers.json.JsonAuditEventHandler",
+          "config": {
+            "name": "demo-protected-route-audit",
+            "logDirectory": "/home/user/.openig/audit",
+            "elasticsearchCompatible": true,
+            "topics": [
+              "access"
+            ],
+            "buffering": {
+              "enabled": false,
+              "maxSize": 10000,
+              "writeInterval": "250 millis",
+              "maxBatchedEvents": 500
+            },
+            "fileRotation": {
+              "rotationEnabled": false
+            }
+          }
+        }
+      ]
+    }
+  },
+  "heap": [
+    {
+      "name": "AmService-Demo",
+      "type": "AmService",
+      "config": {
+        "url": "http://localhost:9090/openam",
+        "realm": "bootcamp",
+        "ssoTokenHeader": "iPlanetDirectoryPro",
+        "version": "6.5",
+        "agent": {
+          "username": "ig_agent",
+          "password": "12345678"
+        },
+        "sessionCache": {
+          "enabled": false
+        }
+      }
+    },
+    {
+      "name": "Chain",
+      "type": "Chain",
+      "config": {
+        "filters": [
+          "HeaderFilter-AddResponseHeaders",
+          "OAuth2ResourceServerFilter-demo",
+          "AssignmentFilter-AMPolicy",
+          "RoleFilter",
+          "PolicyEnforcementFilter-Demo"
+        ],
+        "handler": "ReverseProxyHandler"
+      }
+    },
+    {
+      "name": "HeaderFilter-AddResponseHeaders",
+      "type": "HeaderFilter",
+      "config": {
+        "messageType": "RESPONSE",
+        "remove": [
+          "X-Demo-Header",
+          "Content-Type"
+        ],
+        "add": {
+          "X-Demo-Header": [
+            "demo header populated from IG response filter"
+          ],
+          "Content-Type": [
+            "application/json"
+          ]
+        }
+      }
+    },
+    {
+      "name": "OAuth2ResourceServerFilter-demo",
+      "type": "OAuth2ResourceServerFilter",
+      "config": {
+        "scopes": [
+          "openid",
+          "customerId:user.0"
+        ],
+        "requireHttps": false,
+        "realm": "bootcamp",
+        "cache": {
+          "enabled": true,
+          "defaultTimeout": "1 minute",
+          "maxTimeout": "2 minutes"
+        },
+        "accessTokenResolver": {
+          "name": "token-resolver-1",
+          "type": "TokenIntrospectionAccessTokenResolver",
+          "config": {
+            "endpoint": "http://localhost:9090/openam/oauth2/realms/root/realms/bootcamp/introspect",
+            "providerHandler": {
+              "type": "Chain",
+              "config": {
+                "filters": [
+                  {
+                    "type": "HeaderFilter",
+                    "config": {
+                      "messageType": "request",
+                      "add": {
+                        "Authorization": [
+                          "Basic ${encodeBase64('revolut:12345678')}"
+                        ]
+                      }
+                    }
+                  }
+                ],
+                "handler": "ForgeRockClientHandler"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "AssignmentFilter-AMPolicy",
+      "type": "AssignmentFilter",
+      "config": {
+        "onRequest": [
+          {
+            "target": "${attributes.role}",
+            "value": "admin"
+          }
+        ]
+      }
+    },
+    {
+      "name": "RoleFilter",
+      "type": "RoleFilter",
+      "config": {
+        "scopeHeader": "scope",
+        "scope": "${contexts.oauth2.accessToken.info.scope}"
+      }
+    },
+    {
+      "name": "PolicyEnforcementFilter-Demo",
+      "type": "PolicyEnforcementFilter",
+      "config": {
+        "pepRealm": "bootcamp",
+        "application": "getRole",
+        "claimsSubject": {
+          "sub": "${contexts.oauth2.accessToken.info.sub}",
+          "role": "${attributes.IDMrole}",
+          "iss": "http://localhost:9090/openam/oauth2/realms/bootcamp"
+        },
+        "amService": "AmService-Demo"
+      }
+    },
+    {
+      "name": "ReverseProxyHandler",
+      "type": "ReverseProxyHandler",
+      "config": {
+        "connectionTimeout": "60 seconds",
+        "soTimeout": "unlimited"
+      },
+      "capture": [
+        "response",
+        "request"
+      ]
+    },
+    {
+      "name": "capture",
+      "type": "CaptureDecorator",
+      "config": {
+        "captureEntity": true,
+        "captureContext": true
+      }
+    },
+    {
+      "name": "ForgeRockClientHandler",
+      "type": "Chain",
+      "config": {
+        "filters": [
+          "TransactionIdOutboundFilter"
+        ],
+        "handler": "ClientHandler"
+      },
+      "capture": [
+        "response",
+        "request"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "name" : "demo-oauth2-apis-route",
+  "baseURI" : "http://localhost:9090",
+  "condition" : "${matches(request.uri.path, '(/oauth2/authorize|/oauth2/access_token|/oauth2/introspect)')}",
+  "capture" : [ "response", "request" ],
+  "handler" : "Chain",
+  "heap" : [ {
+    "name" : "Chain",
+    "type" : "Chain",
+    "config" : {
+      "filters" : [ "AssignmentFilter-ChangeUriPath", "ChangeHostFilter" ],
+      "handler" : "ReverseProxyHandler"
+    }
+  }, {
+    "name" : "AssignmentFilter-ChangeUriPath",
+    "type" : "AssignmentFilter",
+    "config" : {
+      "onRequest" : [ {
+        "target" : "${request.uri.path}",
+        "value" : "${toString('/openam').concat(toString(request.uri.path))}"
+      } ]
+    }
+  }, {
+    "name" : "ChangeHostFilter",
+    "type" : "HeaderFilter",
+    "config" : {
+      "messageType" : "REQUEST",
+      "remove" : [ "host" ],
+      "add" : {
+        "host" : [ "localhost" ]
+      }
+    }
+  }, {
+    "name" : "ReverseProxyHandler",
+    "type" : "ReverseProxyHandler",
+    "config" : {
+      "connectionTimeout" : "60 seconds",
+      "soTimeout" : "unlimited"
+    },
+    "capture" : [ "response", "request" ]
+  }, {
+    "name" : "capture",
+    "type" : "CaptureDecorator",
+    "config" : {
+      "captureEntity" : true,
+      "captureContext" : true
+    }
+  }, {
+    "name" : "ForgeRockClientHandler",
+    "type" : "Chain",
+    "config" : {
+      "filters" : [ "TransactionIdOutboundFilter" ],
+      "handler" : "ClientHandler"
+    },
+    "capture" : [ "response", "request" ]
+  } ]
+}

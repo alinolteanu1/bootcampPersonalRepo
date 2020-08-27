@@ -1,0 +1,59 @@
+{
+  "name" : "exchrate",
+  "condition" : "${matches(request.uri.path, '(/cursValutar)')}",
+  "capture" : [ "response", "request" ],
+  "handler" : "Chain",
+  "heap" : [ {
+    "name" : "Chain",
+    "type" : "Chain",
+    "config" : {
+      "filters" : [ "ChangeHostFilter", "AssignmentFilter-ChangeUriPath", "ExchangeRateFilter" ],
+      "handler" : "ReverseProxyHandler"
+    }
+  }, {
+    "name" : "ChangeHostFilter",
+    "type" : "HeaderFilter",
+    "config" : {
+      "messageType" : "REQUEST",
+      "remove" : [ "host" ],
+      "add" : {
+        "host" : [ "www.bnr.ro" ]
+      }
+    }
+  }, {
+    "name" : "AssignmentFilter-ChangeUriPath",
+    "type" : "AssignmentFilter",
+    "config" : {
+      "onRequest" : [ {
+        "target" : "${request.uri.path}",
+        "value" : "nbrfxrates.xml"
+      } ]
+    }
+  }, {
+    "name" : "ExchangeRateFilter",
+    "type" : "ExchangeRateFilter"
+  }, {
+    "name" : "ReverseProxyHandler",
+    "type" : "ReverseProxyHandler",
+    "config" : {
+      "connectionTimeout" : "60 seconds",
+      "soTimeout" : "unlimited"
+    },
+    "capture" : [ "response", "request" ]
+  }, {
+    "name" : "capture",
+    "type" : "CaptureDecorator",
+    "config" : {
+      "captureEntity" : true,
+      "captureContext" : true
+    }
+  }, {
+    "name" : "ForgeRockClientHandler",
+    "type" : "Chain",
+    "config" : {
+      "filters" : [ "TransactionIdOutboundFilter" ],
+      "handler" : "ClientHandler"
+    },
+    "capture" : [ "response", "request" ]
+  } ]
+}

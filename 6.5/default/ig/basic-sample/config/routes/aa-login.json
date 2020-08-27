@@ -1,0 +1,22 @@
+{
+  "name" : "aa-static-login-route",
+  "condition" : "${matches(request.uri.path, '/static')}",
+  "capture" : [ "response", "request" ],
+  "handler" : {
+    "type" : "Chain",
+    "config" : {
+      "filters" : [ {
+        "type" : "StaticRequestFilter",
+        "config" : {
+          "method" : "POST",
+          "uri" : "http://app.bootcamp.com:8081/login",
+          "form" : {
+            "username" : [ "demo" ],
+            "password" : [ "changeit" ]
+          }
+        }
+      } ],
+      "handler" : "ReverseProxyHandler"
+    }
+  }
+}

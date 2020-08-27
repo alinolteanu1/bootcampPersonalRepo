@@ -1,0 +1,164 @@
+{
+  "name" : "demo-protected-route",
+  "baseURI" : "http://18.211.177.234:10180",
+  "condition" : "${matches(request.uri.path, '/isAlive.jsp')}",
+  "capture" : [ "response", "request" ],
+  "handler" : "Chain",
+  "auditService" : {
+    "name" : "demo-audit-service",
+    "type" : "AuditService",
+    "config" : {
+      "enabled" : true,
+      "event-handlers" : [ {
+        "class" : "org.forgerock.audit.handlers.json.JsonAuditEventHandler",
+        "config" : {
+          "name" : "demo-protected-route-audit",
+          "logDirectory" : "/home/ec2-user/.openig/audit",
+          "elasticsearchCompatible" : true,
+          "topics" : [ "access" ],
+          "buffering" : {
+            "enabled" : false,
+            "maxSize" : 10000,
+            "writeInterval" : "250 millis",
+            "maxBatchedEvents" : 500
+          },
+          "fileRotation" : {
+            "rotationEnabled" : false
+          }
+        }
+      } ]
+    }
+  },
+  "heap" : [ {
+    "name" : "AmService-Demo",
+    "type" : "AmService",
+    "config" : {
+      "url" : "http://18.211.177.234:10180/openamfr",
+      "realm" : "vontobel",
+      "ssoTokenHeader" : "iPlanetDirectoryPro",
+      "version" : "6.5",
+      "agent" : {
+        "username" : "ig_agent",
+        "password" : "ig_agent"
+      },
+      "sessionCache" : {
+        "enabled" : false
+      }
+    }
+  }, {
+    "name" : "Chain",
+    "type" : "Chain",
+    "config" : {
+      "filters" : [ "HeaderFilter-AddResponseHeaders", "ChannelFilter-Demo", "OAuth2ResourceServerFilter-demo", "AssignmentFilter-ChangeUriPath", "AssignmentFilter-AMPolicy", "PolicyEnforcementFilter-Demo" ],
+      "handler" : "ReverseProxyHandler"
+    }
+  }, {
+    "name" : "HeaderFilter-AddResponseHeaders",
+    "type" : "HeaderFilter",
+    "config" : {
+      "messageType" : "RESPONSE",
+      "remove" : [ "X-Demo-Header", "Content-Type" ],
+      "add" : {
+        "X-Demo-Header" : [ "demo header populated from IG response filter" ],
+        "Content-Type" : [ "application/json" ]
+      }
+    }
+  }, {
+    "name" : "ChannelFilter-Demo",
+    "type" : "ChannelFilter",
+    "config" : {
+      "allowedChannels" : [ {
+        "xChannel" : "WEB"
+      } ]
+    }
+  }, {
+    "name" : "OAuth2ResourceServerFilter-demo",
+    "type" : "OAuth2ResourceServerFilter",
+    "config" : {
+      "scopes" : [ "openid" ],
+      "requireHttps" : false,
+      "realm" : "vontobel",
+      "cache" : {
+        "enabled" : true,
+        "defaultTimeout" : "1 minute",
+        "maxTimeout" : "2 minutes"
+      },
+      "accessTokenResolver" : {
+        "name" : "token-resolver-1",
+        "type" : "TokenIntrospectionAccessTokenResolver",
+        "config" : {
+          "endpoint" : "http://18.211.177.234:10180/openamfr/oauth2/realms/root/realms/vontobel/introspect",
+          "providerHandler" : {
+            "type" : "Chain",
+            "config" : {
+              "filters" : [ {
+                "type" : "HeaderFilter",
+                "config" : {
+                  "messageType" : "request",
+                  "add" : {
+                    "Authorization" : [ "Basic ${encodeBase64('oauth-client:oauth-client')}" ]
+                  }
+                }
+              } ],
+              "handler" : "ForgeRockClientHandler"
+            }
+          }
+        }
+      }
+    }
+  }, {
+    "name" : "AssignmentFilter-ChangeUriPath",
+    "type" : "AssignmentFilter",
+    "config" : {
+      "onRequest" : [ {
+        "target" : "${request.uri.path}",
+        "value" : "${toString('/openamfr').concat(split(request.uri.path, '/openig')[1])}"
+      } ]
+    }
+  }, {
+    "name" : "AssignmentFilter-AMPolicy",
+    "type" : "AssignmentFilter",
+    "config" : {
+      "onRequest" : [ {
+        "target" : "${attributes.role}",
+        "value" : "admin"
+      } ]
+    }
+  }, {
+    "name" : "PolicyEnforcementFilter-Demo",
+    "type" : "PolicyEnforcementFilter",
+    "config" : {
+      "pepRealm" : "vontobel",
+      "application" : "Vontobel",
+      "claimsSubject" : {
+        "sub" : "${contexts.oauth2.accessToken.info.sub}",
+        "role" : "${attributes.role}",
+        "iss" : "http://18.211.177.234:10180/openamfr/oauth2/realms/root/realms/vontobel"
+      },
+      "amService" : "AmService-Demo"
+    }
+  }, {
+    "name" : "ReverseProxyHandler",
+    "type" : "ReverseProxyHandler",
+    "config" : {
+      "connectionTimeout" : "60 seconds",
+      "soTimeout" : "unlimited"
+    },
+    "capture" : [ "response", "request" ]
+  }, {
+    "name" : "capture",
+    "type" : "CaptureDecorator",
+    "config" : {
+      "captureEntity" : true,
+      "captureContext" : true
+    }
+  }, {
+    "name" : "ForgeRockClientHandler",
+    "type" : "Chain",
+    "config" : {
+      "filters" : [ "TransactionIdOutboundFilter" ],
+      "handler" : "ClientHandler"
+    },
+    "capture" : [ "response", "request" ]
+  } ]
+}
